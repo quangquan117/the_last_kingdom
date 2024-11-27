@@ -3,6 +3,8 @@ package utils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import metier.App;
+
 public class menus {
 
     public static String demandeSaisie(String message) {
@@ -36,13 +38,15 @@ public class menus {
 
             switch (difficulty) {
                 case 1:
-                    System.out.println("Easy");
+                    App.game(1);
+                    interupt = false;
                     break;
                 case 2:
-                    System.out.println("Medium");
+                    App.game(2);
+                    interupt = false;
                     break;
                 case 3:
-                    System.out.println("Hard");
+                    App.game(3);
                     interupt = false;
                     break;
                 default:
@@ -67,7 +71,7 @@ public class menus {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Play");
+                    menusGameSet();
                     break;
                 case 2:
                     System.out.println("Instructions");
