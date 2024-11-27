@@ -2,12 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
-public class init {
+public class AllUnits {
 
     private ArrayList<Unit> unitsAlly;
     private ArrayList<Unit> unitsEnemy;
 
-    public init() {
+    public AllUnits() {
         unitsAlly = new ArrayList<>();
         unitsAlly.add(new Unit("Soldat", 100, 50, 2, 0, 10));
         unitsAlly.add(new Unit("Death Corp", 100, 100, 0, 0, 20));

@@ -38,15 +38,15 @@ public class menus {
 
             switch (difficulty) {
                 case 1:
-                    App.game(1);
+                    App.gameSet(1);
                     interupt = false;
                     break;
                 case 2:
-                    App.game(2);
+                    App.gameSet(2);
                     interupt = false;
                     break;
                 case 3:
-                    App.game(3);
+                    App.gameSet(3);
                     interupt = false;
                     break;
                 default:

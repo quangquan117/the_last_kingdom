@@ -35,4 +35,16 @@ public class Base {
     public void setMoney(int money) {
         this.money = money;
     }
+
+    public void addMoney(int money) {
+        this.money += money;
+    }
+
+    public void removeMoney(int money) {
+        this.money -= money;
+    }
+
+    public boolean isAlive() {
+        return PV > 0;
+    }
 }
