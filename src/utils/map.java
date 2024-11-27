@@ -1,5 +1,7 @@
 package utils;
 
+import model.Base;
+
 public class map {
 
     char[] position;
@@ -52,6 +54,26 @@ public class map {
         }
         if (!isBunker) {
             System.out.println("No more space");
+        }
+    }
+
+    public void moveUnit(Base basePlayer, Base baseEnemy) {
+        for (int i = 0; i < 22; i++) {
+            if (position[i] == 's' || position[i] == 'D' || position[i] == 'B') {
+                if (position[i + 1] == ' ') {
+                    position[i + 1] = position[i];
+                    position[i] = ' ';
+                } else if (position[i + 1] == 'T') {
+                    // Todo: Attack
+                }
+            } else if (position[i] == 'S' || position[i] == 'e' || position[i] == 'M') {
+                if (position[i - 1] == ' ') {
+                    position[i - 1] = position[i];
+                    position[i] = ' ';
+                } else if (position[i - 1] == 'T') {
+                    // Todo: Attack
+                }
+            }
         }
     }
 }
