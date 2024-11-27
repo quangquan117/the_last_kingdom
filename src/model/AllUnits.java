@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class AllUnits {
 
-    private ArrayList<Unit> unitsAlly;
-    private ArrayList<Unit> unitsEnemy;
+    private final ArrayList<Unit> unitsAlly;
+    private final ArrayList<Unit> unitsEnemy;
 
     public AllUnits() {
         unitsAlly = new ArrayList<>();
