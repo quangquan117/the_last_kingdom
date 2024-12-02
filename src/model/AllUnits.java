@@ -18,19 +18,19 @@ public class AllUnits {
         unitsEnemy.add(new Unit("Space Marine du chao", 1000, 100, 30, 0, 0));
     }
 
-    public Unit getUnitAlly(String name) {
+    public Unit getNewUnitAlly(String name) {
         for (Unit unit : unitsAlly) {
             if (unit.getNom().equals(name)) {
-                return unit;
+                return new Unit(unit.getNom(), unit.getPV(), unit.getAttaque(), unit.getDefense(), unit.getPosition(), unit.getPrix());
             }
         }
         return null;
     }
 
-    public Unit getUnitEnemy(String name) {
+    public Unit getNewUnitEnemy(String name) {
         for (Unit unit : unitsEnemy) {
             if (unit.getNom().equals(name)) {
-                return unit;
+                return new Unit(unit.getNom(), unit.getPV(), unit.getAttaque(), unit.getDefense(), unit.getPosition(), unit.getPrix());
             }
         }
         return null;

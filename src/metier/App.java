@@ -1,7 +1,10 @@
 package metier;
 
+import java.util.ArrayList;
 import model.AllUnits;
 import model.Base;
+import model.Map;
+import model.Unit;
 import utils.menus;
 
 public class App {
@@ -9,12 +12,19 @@ public class App {
     private static void game(int nbVague, int eachTrun) {
         int actual_vague = 0;
         AllUnits allUnits = new AllUnits();
+        ArrayList<Unit> unitsPlayer = new ArrayList<>();
+        ArrayList<Unit> unitsEnnemy = new ArrayList<>();
         int turn = 0;
         Base PlayBase = new Base(100, true, 1000);
         Base EnnemyBase = new Base(100, false, 1000);
-        int[] map = new int[20];
-
+        Map map = new Map();
         do {
+            // player turn
+
+            // move map
+            map.moveUnit();
+            // attack turn
+
             turn++;
         } while (PlayBase.isAlive() && EnnemyBase.isAlive() && actual_vague < nbVague);
     }

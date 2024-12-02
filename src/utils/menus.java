@@ -2,7 +2,6 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import metier.App;
 
 public class menus {
