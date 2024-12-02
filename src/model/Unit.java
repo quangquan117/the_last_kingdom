@@ -34,6 +34,10 @@ public class Unit {
         PV = pV;
     }
 
+    public void takeDamage(int damage) {
+        this.PV -= damage;
+    }
+
     public int getAttaque() {
         return attaque;
     }

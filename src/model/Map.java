@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Map {
 
     char[] position;
@@ -12,6 +14,25 @@ public class Map {
     // S = Soldier (Enemy)
     // e = Enfant du chao (Enemy)
     // M = Space Marine du chao (Enemy)
+    private char switchUnitToChar(Unit unit) {
+        switch (unit.getNom()) {
+            case "Soldat":
+                return 's';
+            case "Death Corp":
+                return 'D';
+            case "Bunker":
+                return 'B';
+            case "Soldat corompu":
+                return 'S';
+            case "Enfant du chao":
+                return 'e';
+            case "Space Marine du chao":
+                return 'M';
+            default:
+                return ' ';
+        }
+    }
+
     public Map() {
         this.position = new char[22];
         this.BunkerPosition = new char[22];
@@ -38,24 +59,15 @@ public class Map {
         return this.position[position] == ' ';
     }
 
-    public boolean addUnit(Unit unit, boolean isPlayer) {
+    public void addUnit(Unit unit, boolean isPlayer) {
         if (isPlayer) {
             if (isPositionEmpty(0)) {
                 this.position[0] = switchUnitToChar(unit);
-                unit.setPosition(0);
-                return true;
             } else {
                 System.out.println("No more space");
-                return false;
             }
-        } else {
-            if (isPositionEmpty(19)) {
-                this.position[19] = switchUnitToChar(unit);
-                unit.setPosition(19);
-                return true;
-            } else {
-                return false;
-            }
+        } else if (isPositionEmpty(19)) {
+            this.position[19] = switchUnitToChar(unit);
         }
     }
 
@@ -73,17 +85,32 @@ public class Map {
         }
     }
 
-    public void moveUnit() {
+    public void moveUnit(ArrayList<Unit> unitsPlayer, ArrayList<Unit> unitsEnemy) {
         for (int i = 0; i < 22; i++) {
             if (position[i] == 's' || position[i] == 'D' || position[i] == 'B') {
                 if (isPositionEmpty(i + 1)) {
                     position[i + 1] = position[i];
                     position[i] = ' ';
+                } else if (position[i + 1] == 'S' || position[i + 1] == 'e' || position[i + 1] == 'M') {
+                    unitsEnemy.get(0).takeDamage(unitsPlayer.get(0).getAttaque());
+                    if (unitsEnemy.get(0).getPV() <= 0) {
+                        position[i + 1] = position[i];
+                        position[i] = ' ';
+                        unitsEnemy.remove(0);
+                    }
                 }
             } else if (position[i] == 'S' || position[i] == 'e' || position[i] == 'M') {
                 if (isPositionEmpty(i)) {
                     position[i - 1] = position[i];
                     position[i] = ' ';
+                } else if (position[i - 1] == 's' || position[i - 1] == 'D' || position[i - 1] == 'B') {
+                    unitsPlayer.get(0).takeDamage(unitsEnemy.get(0).getAttaque());
+                    if (unitsPlayer.get(0).getPV() <= 0) {
+                        position[i - 1] = position[i];
+                        position[i] = ' ';
+                        unitsPlayer.remove(0);
+                    }
+
                 }
             }
         }
