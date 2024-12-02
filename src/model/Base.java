@@ -20,6 +20,14 @@ public class Base {
         this.PV = PV;
     }
 
+    public void takeDamage(int damage) {
+        this.PV -= damage;
+    }
+
+    public void heal(int heal) {
+        this.PV += heal;
+    }
+
     public boolean isPosition() {
         return position;
     }

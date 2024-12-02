@@ -85,7 +85,7 @@ public class Map {
         }
     }
 
-    public void moveUnit(ArrayList<Unit> unitsPlayer, ArrayList<Unit> unitsEnemy) {
+    public void moveUnit(ArrayList<Unit> unitsPlayer, ArrayList<Unit> unitsEnemy, Base basePlayer, Base baseEnemy) {
         for (int i = 0; i < 22; i++) {
             if (position[i] == 's' || position[i] == 'D' || position[i] == 'B') {
                 if (isPositionEmpty(i + 1)) {
@@ -98,6 +98,8 @@ public class Map {
                         position[i] = ' ';
                         unitsEnemy.remove(0);
                     }
+                } else if (position[i + 1] == 'b') {
+                    baseEnemy.takeDamage(unitsPlayer.get(0).getAttaque());
                 }
             } else if (position[i] == 'S' || position[i] == 'e' || position[i] == 'M') {
                 if (isPositionEmpty(i)) {
@@ -110,7 +112,8 @@ public class Map {
                         position[i] = ' ';
                         unitsPlayer.remove(0);
                     }
-
+                } else if (position[i - 1] == 'b') {
+                    basePlayer.takeDamage(unitsEnemy.get(0).getAttaque());
                 }
             }
         }

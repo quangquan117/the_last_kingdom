@@ -9,6 +9,13 @@ import utils.menus;
 
 public class App {
 
+    private void shop(AllUnits allUnits, ArrayList unitsPlayer, ArrayList unitsEnnemy) {
+        String reponse;
+        // display shop
+        reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat\n 2. Death Corp\n 3. Bunker\n --Menus--\n 4. passer le tour\n 5. Quitter");
+        // buy unit
+    }
+
     private static void game(int nbVague, int eachTrun) {
         int actual_vague = 0;
         AllUnits allUnits = new AllUnits();
@@ -22,8 +29,8 @@ public class App {
             // player turn
 
             // move map
-            map.moveUnit();
-            // attack turn
+            map.moveUnit(unitsPlayer, unitsEnnemy, PlayBase, EnnemyBase);
+            // ennemy turn
 
             turn++;
         } while (PlayBase.isAlive() && EnnemyBase.isAlive() && actual_vague < nbVague);
