@@ -61,8 +61,8 @@ public class Map {
 
     public void addUnit(Unit unit, boolean isPlayer) {
         if (isPlayer) {
-            if (isPositionEmpty(0)) {
-                this.position[0] = switchUnitToChar(unit);
+            if (isPositionEmpty(1)) {
+this.position[0] = switchUnitToChar(unit);
             } else {
                 System.out.println("No more space");
             }

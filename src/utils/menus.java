@@ -7,7 +7,7 @@ import metier.App;
 public class menus {
 
     public static void printMap(char[] position, char[] BunkerPosition) {
-        System.out.println("Map");
+        System.out.println("Map\n");
         // if bunker print B else print position
         for (int i = 0; i < 22; i++) {
             if (BunkerPosition[i] != ' ') {
@@ -16,6 +16,7 @@ public class menus {
                 System.out.print(position[i]);
             }
         }
+        System.out.println("\n----------------------");
     }
 
     public static String demandeSaisie(String message) {

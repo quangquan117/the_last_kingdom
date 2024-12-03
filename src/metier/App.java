@@ -9,7 +9,7 @@ import utils.menus;
 
 public class App {
 
-    private static boolean shop(AllUnits allUnits, ArrayList<Unit> unitsPlayer, ArrayList<Unit> unitsEnnemy) {
+    private static boolean shop(AllUnits allUnits, ArrayList<Unit> unitsPlayer, ArrayList<Unit> unitsEnnemy, Map map) {
         String reponse;
         // display shop
         reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat\n 2. Death Corp\n 3. Bunker\n --Menus--\n 4. passer le tour\n 5. Quitter");
@@ -29,6 +29,7 @@ public class App {
             }
             if (unit != null) {
                 unitsPlayer.add(unit);
+                map.addUnit(unit, true);
             }
         } else if (reponse.equals("5")) {
             return false;
@@ -43,14 +44,14 @@ public class App {
         ArrayList<Unit> unitsEnnemy = new ArrayList<>();
         int turn = 0;
         Base PlayBase = new Base(100, true, 1000);
-        Base EnnemyBase = new Base(100, false, 1000);
+        Base EnnemyBase = new Base(100, false, 0);
         Map map = new Map();
         boolean switchOnOff = true;
         do {
             // display map
             menus.printMap(map.getPosition(), map.getBunkerPosition());
             // player turn
-            switchOnOff = shop(allUnits, unitsPlayer, unitsEnnemy);
+            switchOnOff = shop(allUnits, unitsPlayer, unitsEnnemy, map);
             // move map
             map.moveUnit(unitsPlayer, unitsEnnemy, PlayBase, EnnemyBase);
             // ennemy turn
