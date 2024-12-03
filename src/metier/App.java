@@ -1,15 +1,15 @@
 package metier;
 
-import java.util.ArrayList;
 import model.AllUnits;
 import model.Base;
 import model.Map;
 import model.Unit;
+import model.UnitList;
 import utils.menus;
 
 public class App {
 
-    private static boolean shop(AllUnits allUnits, ArrayList<Unit> unitsPlayer, ArrayList<Unit> unitsEnnemy, Map map) {
+    private static boolean shop(AllUnits allUnits, UnitList unitList) {
         String reponse;
         // display shop
         reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat\n 2. Death Corp\n 3. Bunker\n --Menus--\n 4. passer le tour\n 5. Quitter");
@@ -28,8 +28,7 @@ public class App {
                     break;
             }
             if (unit != null) {
-                unitsPlayer.add(unit);
-                map.addUnit(unit, true);
+                unitList.addunitPlayer(unit);
             }
         } else if (reponse.equals("5")) {
             return false;
@@ -40,24 +39,29 @@ public class App {
     private static void game(int nbVague, int eachTrun) {
         int actual_vague = 0;
         AllUnits allUnits = new AllUnits();
-        ArrayList<Unit> unitsPlayer = new ArrayList<>();
-        ArrayList<Unit> unitsEnnemy = new ArrayList<>();
+
         int turn = 0;
         Base PlayBase = new Base(100, true, 1000);
         Base EnnemyBase = new Base(100, false, 0);
+        UnitList unitList = new UnitList();
         Map map = new Map();
         boolean switchOnOff = true;
+        int tempostion = 0;
         do {
             // display map
             menus.printMap(map.getPosition(), map.getBunkerPosition());
+            // move units
+            unitList.moveUnits(PlayBase, EnnemyBase);
             // player turn
-            switchOnOff = shop(allUnits, unitsPlayer, unitsEnnemy, map);
-            // move map
-            map.moveUnit(unitsPlayer, unitsEnnemy, PlayBase, EnnemyBase);
-            // ennemy turn
-
+            switchOnOff = shop(allUnits, unitList);
+            map.updatePosition(unitList);
             turn++;
         } while (PlayBase.isAlive() && EnnemyBase.isAlive() && actual_vague < nbVague && switchOnOff);
+        if (PlayBase.isAlive()) {
+            System.out.println("Vous avez gagné");
+        } else {
+            System.out.println("Vous avez perdu");
+        }
     }
 
     public static void gameSet(int difficulty) {
