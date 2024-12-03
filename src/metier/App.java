@@ -60,7 +60,7 @@ public class App {
         int tempostion = 0;
         do {
             // display map
-            menus.printMap(map.getPosition(), map.getBunkerPosition());
+            menus.printMap(map.getPosition(), map.getBunkerPosition(), unitList);
             // move units
             unitList.moveUnits(PlayBase, EnnemyBase);
             // player turn

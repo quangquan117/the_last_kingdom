@@ -2,11 +2,15 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import metier.App;
+import model.Unit;
+import model.UnitList;
 
 public class menus {
 
-    public static void printMap(char[] position, char[] BunkerPosition) {
+    public static void printMap(char[] position, char[] BunkerPosition, UnitList unitList) {
+        ArrayList<Unit> units;
         System.out.println("Map\n");
         // if bunker print B else print position
         for (int i = 0; i < 22; i++) {
@@ -17,6 +21,11 @@ public class menus {
             }
         }
         System.out.println("\n----------------------");
+        // print unit
+        units = unitList.getUnitsPlayer();
+        for (Unit unit : units) {
+            System.out.println(unit.getNom() + " : " + unit.getPV() + " PV");
+        }
     }
 
     public static String demandeSaisie(String message) {
