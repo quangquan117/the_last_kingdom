@@ -53,7 +53,7 @@ public class UnitList {
     public void moveUnits(Base basePlayer, Base baseEnnemy) {
         int tempostion = 0;
         for (Unit unit : unitsPlayer) {
-            if (unit.getPosition() + 1 == unitsEnnemy.get(0).getPosition()) {
+            if (!unitsEnnemy.isEmpty() && unit.getPosition() + 1 == unitsEnnemy.get(0).getPosition()) {
                 unitsEnnemy.get(0).takeDamage(unit.getAttaque());
                 if (unitsEnnemy.get(0).getPV() <= 0) {
                     unitsEnnemy.remove(0);
@@ -69,7 +69,7 @@ public class UnitList {
         }
         tempostion = 22;
         for (Unit unit : unitsEnnemy) {
-            if (unit.getPosition() - 1 == unitsPlayer.get(0).getPosition()) {
+            if (!unitsPlayer.isEmpty() && unit.getPosition() - 1 == unitsPlayer.get(0).getPosition()) {
                 unitsPlayer.get(0).takeDamage(unit.getAttaque());
                 if (unitsPlayer.get(0).getPV() <= 0) {
                     unitsPlayer.remove(0);

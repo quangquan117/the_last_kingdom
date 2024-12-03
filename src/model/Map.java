@@ -58,6 +58,9 @@ public class Map {
     }
 
     public void updatePosition(UnitList unitList) {
+        for (int i = 1; i < 21; i++) {
+            this.position[i] = ' ';
+        }
         for (Unit unit : unitList.getUnitsPlayer()) {
             if (isPositionEmpty(unit.getPosition())) {
                 this.position[unit.getPosition()] = switchUnitToChar(unit);

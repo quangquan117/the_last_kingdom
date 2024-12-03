@@ -9,30 +9,41 @@ import utils.menus;
 
 public class App {
 
-    private static boolean shop(AllUnits allUnits, UnitList unitList) {
+    private static boolean shop(AllUnits allUnits, UnitList unitList, Base basePlayer) {
+        boolean actionValide = false;
         String reponse;
-        // display shop
-        reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat\n 2. Death Corp\n 3. Bunker\n --Menus--\n 4. passer le tour\n 5. Quitter");
-        // if buy unit
-        if (reponse.equals("1") || reponse.equals("2") || reponse.equals("3")) {
-            Unit unit = null;
-            switch (reponse) {
-                case "1":
-                    unit = allUnits.getNewUnitAlly("Soldat");
-                    break;
-                case "2":
-                    unit = allUnits.getNewUnitAlly("Death Corp");
-                    break;
-                case "3":
-                    unit = allUnits.getNewUnitAlly("Bunker");
-                    break;
+        do {
+            // display shop
+            reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat : 10\n 2. Death Corp : 20\n 3. Bunker : 100\n --Menus--\n 4. passer le tour\n 5. Quitter");
+            // if buy unit
+            if (reponse.equals("1") || reponse.equals("2") || reponse.equals("3")) {
+                Unit unit = null;
+                switch (reponse) {
+                    case "1":
+                        unit = allUnits.getNewUnitAlly("Soldat");
+                        break;
+                    case "2":
+                        unit = allUnits.getNewUnitAlly("Death Corp");
+                        break;
+                    case "3":
+                        unit = allUnits.getNewUnitAlly("Bunker");
+                        break;
+                }
+                if (unit != null) {
+                    if (unit.getPrix() <= basePlayer.getMoney()) {
+                        basePlayer.setMoney(basePlayer.getMoney() - unit.getPrix());
+                        unitList.addunitPlayer(unit);
+                        actionValide = true;
+                    } else {
+                        System.out.println("Vous n'avez pas assez d'argent");
+                    }
+                }
+            } else if (reponse.equals("5")) {
+                return false;
+            } else if (reponse.equals("4")) {
+                actionValide = true;
             }
-            if (unit != null) {
-                unitList.addunitPlayer(unit);
-            }
-        } else if (reponse.equals("5")) {
-            return false;
-        }
+        } while (!actionValide);
         return true;
     }
 
@@ -53,7 +64,7 @@ public class App {
             // move units
             unitList.moveUnits(PlayBase, EnnemyBase);
             // player turn
-            switchOnOff = shop(allUnits, unitList);
+            switchOnOff = shop(allUnits, unitList, PlayBase);
             map.updatePosition(unitList);
             turn++;
         } while (PlayBase.isAlive() && EnnemyBase.isAlive() && actual_vague < nbVague && switchOnOff);
