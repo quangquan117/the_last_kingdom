@@ -6,6 +6,18 @@ import metier.App;
 
 public class menus {
 
+    public static void printMap(char[] position, char[] BunkerPosition) {
+        System.out.println("Map");
+        // if bunker print B else print position
+        for (int i = 0; i < 22; i++) {
+            if (BunkerPosition[i] != ' ') {
+                System.out.print(BunkerPosition[i]);
+            } else {
+                System.out.print(position[i]);
+            }
+        }
+    }
+
     public static String demandeSaisie(String message) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String saisie = "";

@@ -9,11 +9,31 @@ import utils.menus;
 
 public class App {
 
-    private void shop(AllUnits allUnits, ArrayList unitsPlayer, ArrayList unitsEnnemy) {
+    private static boolean shop(AllUnits allUnits, ArrayList<Unit> unitsPlayer, ArrayList<Unit> unitsEnnemy) {
         String reponse;
         // display shop
         reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat\n 2. Death Corp\n 3. Bunker\n --Menus--\n 4. passer le tour\n 5. Quitter");
-        // buy unit
+        // if buy unit
+        if (reponse.equals("1") || reponse.equals("2") || reponse.equals("3")) {
+            Unit unit = null;
+            switch (reponse) {
+                case "1":
+                    unit = allUnits.getNewUnitAlly("Soldat");
+                    break;
+                case "2":
+                    unit = allUnits.getNewUnitAlly("Death Corp");
+                    break;
+                case "3":
+                    unit = allUnits.getNewUnitAlly("Bunker");
+                    break;
+            }
+            if (unit != null) {
+                unitsPlayer.add(unit);
+            }
+        } else if (reponse.equals("5")) {
+            return false;
+        }
+        return true;
     }
 
     private static void game(int nbVague, int eachTrun) {
@@ -25,15 +45,18 @@ public class App {
         Base PlayBase = new Base(100, true, 1000);
         Base EnnemyBase = new Base(100, false, 1000);
         Map map = new Map();
+        boolean switchOnOff = true;
         do {
+            // display map
+            menus.printMap(map.getPosition(), map.getBunkerPosition());
             // player turn
-
+            switchOnOff = shop(allUnits, unitsPlayer, unitsEnnemy);
             // move map
             map.moveUnit(unitsPlayer, unitsEnnemy, PlayBase, EnnemyBase);
             // ennemy turn
 
             turn++;
-        } while (PlayBase.isAlive() && EnnemyBase.isAlive() && actual_vague < nbVague);
+        } while (PlayBase.isAlive() && EnnemyBase.isAlive() && actual_vague < nbVague && switchOnOff);
     }
 
     public static void gameSet(int difficulty) {
