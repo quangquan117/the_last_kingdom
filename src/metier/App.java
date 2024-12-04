@@ -1,5 +1,6 @@
 package metier;
 
+import java.util.ArrayList;
 import model.AllUnits;
 import model.Base;
 import model.Map;
@@ -47,6 +48,25 @@ public class App {
         return true;
     }
 
+    private static ArrayList<Unit> createVague(int nbVague, AllUnits allUnits) {
+        ArrayList<Unit> Vague = new ArrayList<>();
+        for (int i = 0; i < nbVague; i++) {
+            int random = (int) (Math.random() * 3);
+            switch (random) {
+                case 0:
+                    Vague.add(allUnits.getNewUnitEnemy("Soldat corompu"));
+                    break;
+                case 1:
+                    Vague.add(allUnits.getNewUnitEnemy("Enfant du chao"));
+                    break;
+                case 2:
+                    Vague.add(allUnits.getNewUnitEnemy("Space Marine du chao"));
+                    break;
+            }
+        }
+        return Vague;
+    }
+
     private static void game(int nbVague, int eachTrun) {
         int actual_vague = 0;
         AllUnits allUnits = new AllUnits();
@@ -57,21 +77,26 @@ public class App {
         UnitList unitList = new UnitList();
         Map map = new Map();
         boolean switchOnOff = true;
-        int tempostion = 0;
+        ArrayList<Unit> Vague = createVague(nbVague, allUnits);
         do {
             // display map
-            menus.printMap(map.getPosition(), map.getBunkerPosition(), unitList);
-            // move units
-            unitList.moveUnits(PlayBase, EnnemyBase);
+            menus.printMap(map.getPosition(), map.getBunkerPosition(), unitList, PlayBase, EnnemyBase);
             // player turn
             switchOnOff = shop(allUnits, unitList, PlayBase);
+            // add enemy unit
+            if (turn % eachTrun == 0 && actual_vague < nbVague) {
+                unitList.addunitEnnemy(Vague.get(actual_vague));
+                actual_vague++;
+            }
+            // move units
             map.updatePosition(unitList);
+            unitList.moveUnits(PlayBase, EnnemyBase);
             turn++;
-        } while (PlayBase.isAlive() && EnnemyBase.isAlive() && actual_vague < nbVague && switchOnOff);
+        } while (PlayBase.isAlive() && EnnemyBase.isAlive() && (actual_vague < nbVague && !unitList.isUnitEnnemy()) && switchOnOff);
         if (PlayBase.isAlive()) {
-            System.out.println("Vous avez gagné");
+            System.out.println("Vous avez gagné!!!\n");
         } else {
-            System.out.println("Vous avez perdu");
+            System.out.println("Vous avez perdu!!!\n");
         }
     }
 

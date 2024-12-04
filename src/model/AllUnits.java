@@ -13,9 +13,9 @@ public class AllUnits {
         unitsAlly.add(new Unit("Death Corp", 100, 100, 0, 1, 20));
         unitsAlly.add(new Unit("Bunker", 1000, 100, 5, 2, 100));
         unitsEnemy = new ArrayList<>();
-        unitsEnemy.add(new Unit("Soldat corompu", 100, 34, 0, 21, 0));
-        unitsEnemy.add(new Unit("Enfant du chao", 500, 50, 10, 21, 0));
-        unitsEnemy.add(new Unit("Space Marine du chao", 1000, 100, 30, 21, 0));
+        unitsEnemy.add(new Unit("Soldat corompu", 100, 34, 0, 21, 5));
+        unitsEnemy.add(new Unit("Enfant du chao", 500, 50, 10, 21, 10));
+        unitsEnemy.add(new Unit("Space Marine du chao", 1000, 100, 30, 21, 30));
     }
 
     public Unit getNewUnitAlly(String name) {

@@ -50,6 +50,10 @@ public class UnitList {
         unitsEnnemy.remove(unit);
     }
 
+    public boolean isUnitEnnemy() {
+        return unitsEnnemy.isEmpty();
+    }
+
     public void moveUnits(Base basePlayer, Base baseEnnemy) {
         int tempostion = 0;
         for (Unit unit : unitsPlayer) {
@@ -57,14 +61,18 @@ public class UnitList {
                 unitsEnnemy.get(0).takeDamage(unit.getAttaque());
                 if (unitsEnnemy.get(0).getPV() <= 0) {
                     unitsEnnemy.remove(0);
+                    basePlayer.setMoney(basePlayer.getMoney() + unitsEnnemy.get(0).getPrix());
                 }
             } else if (unit.getPosition() + 1 == 22) {
                 baseEnnemy.takeDamage(unit.getAttaque());
-                unitsEnnemy.remove(0);
+                unitsPlayer.remove(0);
             } else if (unit.getPosition() + 1 == tempostion) {
                 unit.setPosition(unit.getPosition());
             } else {
                 unit.setPosition(unit.getPosition() + 1);
+            }
+            if (unitsPlayer.isEmpty()) {
+                break;
             }
         }
         tempostion = 22;
@@ -81,6 +89,9 @@ public class UnitList {
                 unit.setPosition(unit.getPosition());
             } else {
                 unit.setPosition(unit.getPosition() - 1);
+            }
+            if (unitsEnnemy.isEmpty()) {
+                break;
             }
         }
     }

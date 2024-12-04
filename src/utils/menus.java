@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import metier.App;
+import model.Base;
 import model.Unit;
 import model.UnitList;
 
 public class menus {
 
-    public static void printMap(char[] position, char[] BunkerPosition, UnitList unitList) {
+    public static void printMap(char[] position, char[] BunkerPosition, UnitList unitList, Base basePlayer, Base baseEnnemy) {
         ArrayList<Unit> units;
         System.out.println("Map\n");
         // if bunker print B else print position
@@ -22,10 +23,21 @@ public class menus {
         }
         System.out.println("\n----------------------");
         // print unit
+        System.out.println("--Player--");
         units = unitList.getUnitsPlayer();
         for (Unit unit : units) {
             System.out.println(unit.getNom() + " : " + unit.getPV() + " PV");
         }
+        System.out.println("Money : " + basePlayer.getMoney());
+        System.out.println("Base Player : " + basePlayer.getPV() + " PV");
+        System.out.println("----------------------");
+        System.out.println("--Ennemy--");
+        units = unitList.getUnitsEnnemy();
+        for (Unit unit : units) {
+            System.out.println(unit.getNom() + " : " + unit.getPV() + " PV");
+        }
+        System.out.println("Base Ennemy : " + baseEnnemy.getPV() + " PV");
+        System.out.println("----------------------");
     }
 
     public static String demandeSaisie(String message) {
