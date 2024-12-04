@@ -76,7 +76,7 @@ public class App {
         Base EnnemyBase = new Base(100, false, 0);
         UnitList unitList = new UnitList();
         Map map = new Map();
-        boolean switchOnOff = true;
+        boolean switchOnOff;
         ArrayList<Unit> Vague = createVague(nbVague, allUnits);
         do {
             // display map
