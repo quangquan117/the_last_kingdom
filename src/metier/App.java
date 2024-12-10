@@ -15,9 +15,9 @@ public class App {
         String reponse;
         do {
             // display shop
-            reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat : 10\n 2. Death Corp : 20\n 3. Bunker : 100\n --Menus--\n 4. passer le tour\n 5. Quitter");
+            reponse = menus.demandeSaisie("--Acheter une unité--\n 1. Soldat : 10\n 2. Death Corp : 20\n 3. Bunker : 100\n 4. Space Marine : 500\n 5. Dreadnaute : 1000\n 6. Char Predator : 2000\n 7. Passer le tour\n 8. Quitter\n");
             // if buy unit
-            if (reponse.equals("1") || reponse.equals("2") || reponse.equals("3")) {
+            if (reponse.equals("1") || reponse.equals("2") || reponse.equals("3") || reponse.equals("4") || reponse.equals("5") || reponse.equals("6")) {
                 Unit unit = null;
                 switch (reponse) {
                     case "1":
@@ -29,6 +29,15 @@ public class App {
                     case "3":
                         unit = allUnits.getNewUnitAlly("Bunker");
                         break;
+                    case "4":
+                        unit = allUnits.getNewUnitAlly("Space Marine");
+                        break;
+                    case "5":
+                        unit = allUnits.getNewUnitAlly("Dreadnaute");
+                        break;
+                    case "6":
+                        unit = allUnits.getNewUnitAlly("Char Predator");
+                        break;
                 }
                 if (unit != null) {
                     if (unit.getPrix() <= basePlayer.getMoney()) {
@@ -39,9 +48,9 @@ public class App {
                         System.out.println("Vous n'avez pas assez d'argent");
                     }
                 }
-            } else if (reponse.equals("5")) {
+            } else if (reponse.equals("8")) {
                 return false;
-            } else if (reponse.equals("4")) {
+            } else if (reponse.equals("7")) {
                 actionValide = true;
             }
         } while (!actionValide);
@@ -51,7 +60,7 @@ public class App {
     private static ArrayList<Unit> createVague(int nbVague, AllUnits allUnits) {
         ArrayList<Unit> Vague = new ArrayList<>();
         for (int i = 0; i < nbVague; i++) {
-            int random = (int) (Math.random() * 3);
+            int random = (int) (Math.random() * 6);
             switch (random) {
                 case 0:
                     Vague.add(allUnits.getNewUnitEnemy("Soldat corompu"));
@@ -61,6 +70,15 @@ public class App {
                     break;
                 case 2:
                     Vague.add(allUnits.getNewUnitEnemy("Space Marine du chao"));
+                    break;
+                case 3:
+                    Vague.add(allUnits.getNewUnitEnemy("demon du chao"));
+                    break;
+                case 4:
+                    Vague.add(allUnits.getNewUnitEnemy("Dreadnaute du Chao"));
+                    break;
+                case 5:
+                    Vague.add(allUnits.getNewUnitEnemy("Demon Majeur du Chao"));
                     break;
             }
         }
@@ -72,12 +90,13 @@ public class App {
         AllUnits allUnits = new AllUnits();
 
         int turn = 0;
-        Base PlayBase = new Base(100, true, 1000);
-        Base EnnemyBase = new Base(100, false, 0);
+        Base PlayBase = new Base(10000, true, 1000);
+        Base EnnemyBase = new Base(10000, false, 0);
         UnitList unitList = new UnitList();
         Map map = new Map();
         boolean switchOnOff;
         ArrayList<Unit> Vague = createVague(nbVague, allUnits);
+        boolean listEnnemy;
         do {
             // display map
             menus.printMap(map.getPosition(), map.getBunkerPosition(), unitList, PlayBase, EnnemyBase);
@@ -89,10 +108,11 @@ public class App {
                 actual_vague++;
             }
             // move units
-            map.updatePosition(unitList);
             unitList.moveUnits(PlayBase, EnnemyBase);
+            map.updatePosition(unitList);
             turn++;
-        } while (PlayBase.isAlive() && EnnemyBase.isAlive() && (actual_vague < nbVague && !unitList.isUnitEnnemy()) && switchOnOff);
+            listEnnemy = unitList.isUnitEnnemy();
+        } while (PlayBase.isAlive() && EnnemyBase.isAlive() && (actual_vague < nbVague || !listEnnemy) && switchOnOff);
         if (PlayBase.isAlive()) {
             System.out.println("Vous avez gagné!!!\n");
         } else {
