@@ -95,6 +95,10 @@ public class menus {
         System.out.println("Le but du jeu est de protéger votre base contre les vagues ennemies.\nVous avez la possibilité d'acheter des unités pour défendre votre base.\nChaque unité a un coût et des caractéristiques qui lui sont propres.\nVous pouvez acheter une unité ou passer votre tour.\nLes ennemis avance pour attaquer votre base à chaque tour.\nSi votre base tombe à 0 PV, vous avez perdu.\nSi vous survivez à toutes les vagues ennemies, vous avez gagné.");
         System.out.println("\n--Unités--\n");
         // afficher les unités (le prix est le cout)
+        /* 
+         * 
+         */
+
         System.out.println("1. s = Soldat : 100 PV, 50 Attaque, 2 Defense, 10 Prix");
         System.out.println("2. d = Death Corp : 100 PV, 100 Attaque, 0 Defense, 20 Prix");
         System.out.println("3. b = Bunker : 1000 PV, 100 Attaque, 5 Defense, 100 Prix");

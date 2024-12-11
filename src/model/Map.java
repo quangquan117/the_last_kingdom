@@ -6,18 +6,6 @@ public class Map {
     char[] BunkerPosition;
 
     // B = base
-    // s = Soldat
-    // d = Death Corp
-    // b = Bunker
-    // S = Space Marine
-    // D = Dreadnaute
-    // C = Char Predator
-    // c = Soldat corompu
-    // e = Enfant du chao
-    // m = Space Marine du chao
-    // A = demon du chao
-    // R = Dreadnaute du Chao
-    // M = Demon Majeur du Chao
     private char switchUnitToChar(Unit unit) {
         switch (unit.getNom()) {
             case "Soldat":

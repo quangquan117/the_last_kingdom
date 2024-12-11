@@ -59,8 +59,10 @@ public class UnitList {
         int unitsSize = units.size();
         int random = (int) (Math.random() * (unitsSize < 3 ? unitsSize : 3));
         int degats;
-        degats = attaque - units.get(random).getDefense();
-        units.get(random).takeDamage(degats < 10 ? 10 : degats);
+        int defense = units.get(random).getDefense() < 1 ? 1 : units.get(random).getDefense();
+
+        degats = attaque / defense;
+        units.get(random).takeDamage(degats < 5 ? 5 : degats);
         if (units.get(random).getPV() <= 0) {
             argent = units.get(random).getPrix();
             units.remove(random);

@@ -61,8 +61,10 @@ public class App {
         ArrayList<Unit> Vague = new ArrayList<>();
         int random;
         for (int i = 0; i < nbVague; i++) {
-
-            random = (int) (Math.random() * nbVague);
+            if (i > 6) {
+                i = 6;
+            }
+            random = (int) (Math.random() * i);
             switch (random) {
                 case 0:
                     Vague.add(allUnits.getNewUnitEnemy("Soldat corompu"));
@@ -128,15 +130,15 @@ public class App {
 
         switch (difficulty) {
             case 1:
-                nbVague = 3;
+                nbVague = 5;
                 eachTrun = 10;
                 break;
             case 2:
-                nbVague = 4;
+                nbVague = 10;
                 eachTrun = 9;
                 break;
             default:
-                nbVague = 6;
+                nbVague = 15;
                 eachTrun = 8;
                 break;
         }
