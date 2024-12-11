@@ -125,8 +125,9 @@ public class App {
     }
 
     public static void gameSet(int difficulty) {
-        int nbVague;
-        int eachTrun;
+        int nbVague = 5;
+        int eachTrun = 10;
+        String theReturn;
 
         switch (difficulty) {
             case 1:
@@ -137,9 +138,19 @@ public class App {
                 nbVague = 10;
                 eachTrun = 9;
                 break;
-            default:
+            case 3:
                 nbVague = 15;
                 eachTrun = 8;
+                break;
+            case 4:
+                try {
+                    theReturn = menus.demandeSaisie("choose number of wave");
+                    nbVague = Integer.parseInt(theReturn);
+                    theReturn = menus.demandeSaisie("choose number of turn between each wave");
+                    eachTrun = Integer.parseInt(theReturn);
+                } catch (NumberFormatException e) {
+                    System.out.println("Erreur, vous avez saisi une valeur non valide");
+                }
                 break;
         }
 

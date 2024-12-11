@@ -60,7 +60,7 @@ public class menus {
         int difficulty = 0;
         boolean interupt = true;
         do {
-            String theReturn = demandeSaisie("1. Easy\n2. Medium\n3. Hard");
+            String theReturn = demandeSaisie("1. Easy\n2. Medium\n3. Hard\n4 personalized");
             try {
                 difficulty = Integer.parseInt(theReturn);
             } catch (NumberFormatException e) {
@@ -80,6 +80,10 @@ public class menus {
                     break;
                 case 3:
                     App.gameSet(3);
+                    interupt = false;
+                    break;
+                case 4:
+                    App.gameSet(4);
                     interupt = false;
                     break;
                 default:

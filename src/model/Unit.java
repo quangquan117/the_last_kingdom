@@ -10,8 +10,8 @@ public class Unit {
     private int prix;
 
     public Unit(String nom, int pV, int attaque, int defense, int position, int prix) {
-        Nom = nom;
-        PV = pV;
+        this.Nom = nom;
+        this.PV = pV;
         this.attaque = attaque;
         this.defense = defense;
         this.position = position;
