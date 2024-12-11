@@ -59,8 +59,10 @@ public class App {
 
     private static ArrayList<Unit> createVague(int nbVague, AllUnits allUnits) {
         ArrayList<Unit> Vague = new ArrayList<>();
+        int random;
         for (int i = 0; i < nbVague; i++) {
-            int random = (int) (Math.random() * 6);
+
+            random = (int) (Math.random() * nbVague);
             switch (random) {
                 case 0:
                     Vague.add(allUnits.getNewUnitEnemy("Soldat corompu"));
@@ -90,8 +92,8 @@ public class App {
         AllUnits allUnits = new AllUnits();
 
         int turn = 0;
-        Base PlayBase = new Base(10000, true, 1000);
-        Base EnnemyBase = new Base(10000, false, 0);
+        Base PlayBase = new Base(1000, true, 1000);
+        Base EnnemyBase = new Base(1000, false, 0);
         UnitList unitList = new UnitList();
         Map map = new Map();
         boolean switchOnOff;
@@ -130,12 +132,12 @@ public class App {
                 eachTrun = 10;
                 break;
             case 2:
-                nbVague = 5;
-                eachTrun = 7;
+                nbVague = 4;
+                eachTrun = 9;
                 break;
             default:
-                nbVague = 10;
-                eachTrun = 5;
+                nbVague = 6;
+                eachTrun = 8;
                 break;
         }
 

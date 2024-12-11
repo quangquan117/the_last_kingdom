@@ -54,25 +54,25 @@ public class UnitList {
         return unitsEnnemy.isEmpty();
     }
 
-    private void attaque(int attaque, ArrayList<Unit> units, Base base) {
+    private int attaque(int attaque, ArrayList<Unit> units, Base base) {
+        int argent = 0;
         int unitsSize = units.size();
         int random = (int) (Math.random() * (unitsSize < 3 ? unitsSize : 3));
-        if (random == 0) {
-            random = 1;
+        int degats;
+        degats = attaque - units.get(random).getDefense();
+        units.get(random).takeDamage(degats < 10 ? 10 : degats);
+        if (units.get(random).getPV() <= 0) {
+            argent = units.get(random).getPrix();
+            units.remove(random);
         }
-        for (int i = 0; i < random; i++) {
-            units.get(i).takeDamage(attaque);
-            if (units.get(i).getPV() <= 0) {
-                units.remove(i);
-            }
-        }
+        return argent;
     }
 
     public void moveUnits(Base basePlayer, Base baseEnnemy) {
         int tempostion = 0;
         for (int i = 0; i < unitsPlayer.size(); i++) {
             if (!unitsEnnemy.isEmpty() && unitsPlayer.get(i).getPosition() + 1 == unitsEnnemy.get(0).getPosition()) {
-                attaque(unitsPlayer.get(i).getAttaque(), unitsEnnemy, baseEnnemy);
+                basePlayer.addMoney(attaque(unitsPlayer.get(i).getAttaque(), unitsEnnemy, baseEnnemy));
             } else if (unitsPlayer.get(i).getPosition() + 1 == 22) {
                 baseEnnemy.takeDamage(unitsPlayer.get(i).getAttaque());
                 unitsPlayer.remove(i);
