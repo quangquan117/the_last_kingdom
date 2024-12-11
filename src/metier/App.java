@@ -1,6 +1,5 @@
 package metier;
 
-import java.util.ArrayList;
 import model.AllUnits;
 import model.Base;
 import model.Map;
@@ -57,36 +56,29 @@ public class App {
         return true;
     }
 
-    private static ArrayList<Unit> createVague(int nbVague, AllUnits allUnits) {
-        ArrayList<Unit> Vague = new ArrayList<>();
+    private static Unit createVague(int actual_vague, AllUnits allUnits) {
         int random;
-        for (int i = 0; i < nbVague; i++) {
-            if (i > 6) {
-                i = 6;
-            }
-            random = (int) (Math.random() * i);
-            switch (random) {
-                case 0:
-                    Vague.add(allUnits.getNewUnitEnemy("Soldat corompu"));
-                    break;
-                case 1:
-                    Vague.add(allUnits.getNewUnitEnemy("Enfant du chao"));
-                    break;
-                case 2:
-                    Vague.add(allUnits.getNewUnitEnemy("Space Marine du chao"));
-                    break;
-                case 3:
-                    Vague.add(allUnits.getNewUnitEnemy("demon du chao"));
-                    break;
-                case 4:
-                    Vague.add(allUnits.getNewUnitEnemy("Dreadnaute du Chao"));
-                    break;
-                case 5:
-                    Vague.add(allUnits.getNewUnitEnemy("Demon Majeur du Chao"));
-                    break;
-            }
+
+        if (actual_vague > 6) {
+            actual_vague = 6;
         }
-        return Vague;
+        random = (int) (Math.random() * actual_vague);
+        switch (random) {
+            case 0:
+                return allUnits.getNewUnitEnemy("Soldat corompu");
+            case 1:
+                return allUnits.getNewUnitEnemy("Enfant du chao");
+            case 2:
+                return allUnits.getNewUnitEnemy("Space Marine du chao");
+            case 3:
+                return allUnits.getNewUnitEnemy("demon du chao");
+            case 4:
+                return allUnits.getNewUnitEnemy("Dreadnaute du Chao");
+            case 5:
+                return allUnits.getNewUnitEnemy("Demon Majeur du Chao");
+            default:
+                return allUnits.getNewUnitEnemy("Soldat corompu");
+        }
     }
 
     private static void game(int nbVague, int eachTrun) {
@@ -99,7 +91,6 @@ public class App {
         UnitList unitList = new UnitList();
         Map map = new Map();
         boolean switchOnOff;
-        ArrayList<Unit> Vague = createVague(nbVague, allUnits);
         boolean listEnnemy;
         do {
             // display map
@@ -108,7 +99,7 @@ public class App {
             switchOnOff = shop(allUnits, unitList, PlayBase);
             // add enemy unit
             if (turn % eachTrun == 0 && actual_vague < nbVague) {
-                unitList.addunitEnnemy(Vague.get(actual_vague));
+                unitList.addunitEnnemy(createVague(actual_vague, allUnits));
                 actual_vague++;
             }
             // move units
